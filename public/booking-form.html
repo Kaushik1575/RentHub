@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Vehicle - RentHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .booking-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .booking-header h1 {
+            margin: 0;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .vehicle-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .vehicle-info h2 {
+            margin: 0 0 1rem 0;
+            color: #333;
+        }
+
+        .vehicle-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .vehicle-details p {
+            margin: 0;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+
+        .price-details {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-row.total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .payment-info {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        .payment-info p {
+            margin: 0;
+            color: #0d47a1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .booking-container {
+                padding: 1rem;
+            }
+
+            .vehicle-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>RentHub</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="my-bookings.html" id="myBookingsBtn">My Bookings</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-login">Login</a>
+            <button id="registerBtn" class="btn btn-primary">Register</button>
+            <button id="adminBtn" class="btn btn-secondary" style="display: none;">Admin Panel</button>
+            <button id="logoutBtn" class="btn" style="display: none;">Logout</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+    
+    <main class="booking-page-main">
+        <div class="booking-container">
+            <div class="booking-header">
+                <h1>Book Vehicle</h1>
+                <button class="close-btn" onclick="window.close()">&times;</button>
+            </div>
+
+            <div class="vehicle-info">
+                <h2>Vehicle Details</h2>
+                <div class="vehicle-details">
+                    <p><strong>Name:</strong> <span id="vehicleName">Loading...</span></p>
+                    <p><strong>Engine:</strong> <span id="vehicleEngine">Loading...</span></p>
+                    <p><strong>Fuel Type:</strong> <span id="vehicleFuel">Loading...</span></p>
+                    <p><strong>Price per day:</strong> <span id="vehiclePrice">Loading...</span></p>
+                </div>
+            </div>
+
+            <form id="bookingForm">
+                <input type="hidden" id="vehicleId" name="vehicleId">
+                <input type="hidden" id="vehicleType" name="vehicleType">
+
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="startTime">Start Time</label>
+                    <input type="time" id="startTime" name="startTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Duration (hours)</label>
+                    <input type="number" id="duration" name="duration" min="1" max="24" value="1" required>
+                </div>
+
+                <div class="price-details">
+                    <div class="price-row">
+                        <span>Duration:</span>
+                        <span><span id="totalHours">1</span> hours</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount">₹0</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Advance Payment:</span>
+                        <span>₹100</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Remaining Amount:</span>
+                        <span id="remainingAmount">₹0</span>
+                    </div>
+                </div>
+
+                <!-- Payment Options Section -->
+                <div class="form-group">
+                    <h2 style="color:#1976d2; text-align:center; margin-bottom:1rem;">
+                        <span style="font-size:1.2em;">💰</span> Payment Options - Advance Amount: <span style="color:#009688;">₹100</span>
+                    </h2>
+                    <div style="display:flex; flex-wrap:wrap; gap:16px; justify-content:center;">
+                        <div style="flex:1 1 200px; min-width:200px; background:#f5fff5; border-radius:8px; padding:16px; border:1px solid #b2dfdb; text-align:center;">
+                            <h3 style="color:#388e3c; margin-bottom:8px;">QR Code Payment</h3>
+                            <img src="photo/QR.jpeg" alt="QR Code" style="max-width:120px; margin:8px auto; display:block; border:1px solid #ccc; border-radius:8px;">
+                            <div style="color:#388e3c; font-weight:500; margin-top:8px;">Quick & Easy Payment</div>
+                        </div>
+                        <div style="flex:1 1 200px; min-width:200px; background:#fff8f5; border-radius:8px; padding:16px; border:1px solid #ffcdd2; text-align:center;">
+                            <h3 style="color:#d84315; margin-bottom:8px;">UPI Payment</h3>
+                            <div style="font-size:1.1em; color:#d84315; background:#fff3e0; padding:8px 0; border-radius:4px; font-weight:600;">UPI ID: <span id="upiId">90407576830@ibl</span></div>
+                            <div style="color:#d84315; font-weight:500; margin-top:8px;">Instant Transfer</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px; background:#f3f7fa; border-radius:8px; padding:16px; border:1px solid #90caf9;">
+                        <h3 style="color:#1565c0; margin-bottom:8px; text-align:center;">🏦 Bank Transfer</h3>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <div><strong>Account Holder:</strong> Kaushik Das</div>
+                            <div><strong>Account Number:</strong> 5350101111111384</div>
+                            <div><strong>IFSC Code:</strong> SBIN50004500</div>
+                            <div><strong>Bank:</strong> State Bank of India</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:16px; text-align:center; color:#1976d2; font-size:1em;">
+                        <b>Choose any payment method above. After payment, click 'Confirm Booking' below.</b>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="transactionId">Transaction ID</label>
+                    <input type="text" id="transactionId" name="transactionId" placeholder="Enter UPI transaction ID" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Confirm Booking</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="register-choice-modal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); justify-content:center; align-items:center;">
+        <div style="background:#fff; padding:32px 24px; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.12); min-width:300px; text-align:center;">
+            <h3 style="margin-bottom:20px;">Register as</h3>
+            <button id="registerAsUserBtn" class="btn btn-primary" style="margin:8px 0; width:90%;">User</button><br>
+            <button id="registerAsAdminBtn" class="btn btn-secondary" style="margin:8px 0; width:90%;">Admin</button><br>
+            <button id="closeRegisterChoiceModal" class="btn" style="margin-top:16px; background:#eee; color:#333;">Cancel</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>RentHub</h3>
+                <p>Your trusted partner for bike rentals</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@bikerental.com</p>
+                <p>Phone: 7077733320</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 RentHub. All rights reserved.</p>
+            <p><a href="login.html" class="admin-login-link">Admin Login</a></p>
+        </div>
+    </footer>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // Register choice modal logic
+    const registerBtn = document.getElementById('registerBtn');
+    const registerChoiceModal = document.getElementById('register-choice-modal');
+    const registerAsUserBtn = document.getElementById('registerAsUserBtn');
+    const registerAsAdminBtn = document.getElementById('registerAsAdminBtn');
+    const closeRegisterChoiceModal = document.getElementById('closeRegisterChoiceModal');
+
+    if (registerBtn && registerChoiceModal) {
+        registerBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            registerChoiceModal.style.display = 'flex';
+        });
+    }
+    if (registerAsUserBtn) {
+        registerAsUserBtn.addEventListener('click', () => {
+            window.location.href = 'user-register.html';
+        });
+    }
+    if (registerAsAdminBtn) {
+        registerAsAdminBtn.addEventListener('click', () => {
+            window.location.href = 'admin-register.html';
+        });
+    }
+    if (closeRegisterChoiceModal) {
+        closeRegisterChoiceModal.addEventListener('click', () => {
+            registerChoiceModal.style.display = 'none';
+        });
+    }
+    window.addEventListener('click', (e) => {
+        if (e.target === registerChoiceModal) {
+            registerChoiceModal.style.display = 'none';
+        }
+    });
+    </script>
+</body>
+</html> 

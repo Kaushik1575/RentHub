@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+                <span id="admin-name" style="display:block; font-size:1rem; font-weight:normal; margin-top:6px;"></span>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="nav-link" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-target="users"><i class="fas fa-users"></i> User Management</a></li>
+                    <li><a href="#" class="nav-link" data-target="bookings"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+                    <li><a href="#" class="nav-link" data-target="vehicles"><i class="fas fa-motorcycle"></i> Vehicles</a></li>
+                    <li><a href="#" class="nav-link" data-target="policies"><i class="fas fa-file-alt"></i> Policies</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <main class="admin-content">
+            <div id="dashboard" class="content-section active">
+                <h3>Dashboard</h3>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-car"></i></div>
+                        <div class="card-info">
+                            <h4>Total Vehicles</h4>
+                            <p id="total-vehicles">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-clock"></i></div>
+                        <div class="card-info">
+                            <h4>Pending Confirmations</h4>
+                            <p id="pending-bookings">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-calendar-day"></i></div>
+                        <div class="card-info">
+                            <h4>Today's Bookings</h4>
+                            <p id="todays-bookings">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <div class="card-info">
+                            <h4>Active Users</h4>
+                            <p id="active-users">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-motorcycle"></i></div>
+                        <div class="card-info">
+                            <h4>Confirmed Bookings</h4>
+                            <p id="confirmed-bookings">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="card-info">
+                            <h4>Monthly Bookings</h4>
+                            <p id="total-bookings-month">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-ban"></i></div>
+                        <div class="card-info">
+                            <h4>Cancelled Bookings</h4>
+                            <p id="cancelled-bookings">0</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <div class="card-info">
+                            <h4>Pending Refunds</h4>
+                            <p id="pending-refunds">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Activity</h3>
+                    <div id="activity-log" class="activity-log">
+                        <p>N/A</p>
+                    </div>
+                </div>
+            </div>
+            <div id="users" class="content-section">
+                <h2>Users</h2>
+                <div class="user-filters" style="margin-bottom: 18px; max-width: 400px;">
+                    <div>
+                        <label for="user-search">Search:</label>
+                        <input type="text" id="user-search" placeholder="Name, Email, or Phone" style="padding: 4px 8px; width: 100%;">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- User rows will be inserted here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="bookings" class="content-section">
+                <h2>Bookings</h2>
+                <div class="booking-filters" style="display: flex; gap: 16px; margin-bottom: 18px; align-items: flex-end; flex-wrap: wrap;">
+                    <div>
+                        <label for="booking-search">Search:</label>
+                        <input type="text" id="booking-search" placeholder="Name, Vehicle, or ID" style="padding: 4px 8px;">
+                    </div>
+                    <div>
+                        <label for="booking-status-filter">Status:</label>
+                        <select id="booking-status-filter" style="padding: 4px 8px;">
+                            <option value="">All</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="booking-date">Start Date:</label>
+                        <input type="date" id="booking-date" style="padding: 4px 8px;">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="bookings-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>CUSTOMER</th>
+                                <th>VEHICLE</th>
+                                <th>START DATE</th>
+                                <th>DURATION</th>
+                                <th>TOTAL AMOUNT</th>
+                                <th>ADVANCE</th>
+                                <th>REMAINING</th>
+                                <th>STATUS</th>
+                                <th>REFUND INFO</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-table-body">
+                            <!-- Booking rows will be inserted here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="vehicles" class="content-section">
+                <h2>Vehicles</h2>
+                <button id="add-vehicle-btn" class="action-btn btn-confirm" style="margin-bottom: 18px;">+ Add Vehicle</button>
+                <div class="table-container">
+                    <table id="vehicles-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehicles-table-body">
+                            <!-- Vehicle rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <!-- View Vehicle Modal -->
+                <div id="view-vehicle-modal" class="modal">
+                    <div class="modal-content" style="max-width: 400px;">
+                        <span class="close-button" data-modal="view-vehicle-modal">&times;</span>
+                        <h2>Vehicle Details</h2>
+                        <div id="vehicle-details-content">Loading...</div>
+                    </div>
+                </div>
+                <!-- Edit Vehicle Modal -->
+                <div id="edit-vehicle-modal" class="modal">
+                    <div class="modal-content" style="max-width: 400px;">
+                        <span class="close-button" data-modal="edit-vehicle-modal">&times;</span>
+                        <h2>Edit Vehicle</h2>
+                        <form id="edit-vehicle-form">
+                            <input type="hidden" id="edit-vehicle-id">
+                            <div style="margin-bottom: 12px;">
+                                <label>Name:</label>
+                                <input type="text" id="edit-vehicle-name" required>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Type:</label>
+                                <select id="edit-vehicle-type" required>
+                                    <option value="car">Car</option>
+                                    <option value="bike">Bike</option>
+                                    <option value="scooty">Scooty</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Category:</label>
+                                <input type="text" id="edit-vehicle-category" required>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Price:</label>
+                                <input type="number" id="edit-vehicle-price" min="0" required>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Status:</label>
+                                <select id="edit-vehicle-status" required>
+                                    <option value="available">Available</option>
+                                    <option value="unavailable">Unavailable</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="action-btn btn-confirm">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Add Vehicle Modal -->
+                <div id="add-vehicle-modal" class="modal">
+                    <div class="modal-content" style="max-width: 400px;">
+                        <span class="close-button" data-modal="add-vehicle-modal">&times;</span>
+                        <h2>Add Vehicle</h2>
+                        <form id="add-vehicle-form">
+                            <div style="margin-bottom: 12px;">
+                                <label>Name:</label>
+                                <input type="text" id="add-vehicle-name" required>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Type:</label>
+                                <select id="add-vehicle-type" required>
+                                    <option value="car">Car</option>
+                                    <option value="bike">Bike</option>
+                                    <option value="scooty">Scooty</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Category:</label>
+                                <input type="text" id="add-vehicle-category" required>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Price:</label>
+                                <input type="number" id="add-vehicle-price" min="0" required>
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <label>Status:</label>
+                                <select id="add-vehicle-status" required>
+                                    <option value="available">Available</option>
+                                    <option value="unavailable">Unavailable</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="action-btn btn-confirm">Add Vehicle</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="policies" class="content-section">
+                <h2>Policies</h2>
+                <div class="table-container">
+                    <table id="policies-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="policies-table-body">
+                            <!-- Policy rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Booking Modal -->
+    <div id="view-booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="view-booking-modal">&times;</span>
+            <h2>Booking Details</h2>
+            <div id="booking-details-content">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-confirm-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-button" data-modal="delete-confirm-modal">&times;</span>
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to permanently delete this booking?</p>
+            <div class="modal-actions">
+                <button id="confirm-delete-btn" class="action-btn btn-delete">Yes, Delete</button>
+                <button id="cancel-delete-btn" class="action-btn" style="background-color: #6c757d;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rejection Reason Modal -->
+    <div id="reject-reason-modal" class="modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <span class="close-button" data-modal="reject-reason-modal">&times;</span>
+            <h3>Reason for Rejection</h3>
+            <p>Please provide a reason for rejecting this booking.</p>
+            <textarea id="rejection-reason-text" rows="4" style="width: 100%;"></textarea>
+            <div class="modal-actions">
+                <button id="submit-rejection-btn" class="action-btn btn-delete">Submit Rejection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Booking Modal -->
+    <div id="edit-booking-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-button" data-modal="edit-booking-modal">&times;</span>
+            <h2>Edit Booking</h2>
+            <form id="edit-booking-form">
+                <input type="hidden" id="edit-booking-id">
+                <div style="margin-bottom: 12px;">
+                    <label>Start Date:</label>
+                    <input type="date" id="edit-start-date" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Start Time:</label>
+                    <input type="time" id="edit-start-time" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Duration (hours):</label>
+                    <input type="number" id="edit-duration" min="1" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Status:</label>
+                    <select id="edit-status">
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Total Amount:</label>
+                    <input type="number" id="edit-total-amount" min="0" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Advance Payment:</label>
+                    <input type="number" id="edit-advance-payment" min="0" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Remaining Amount:</label>
+                    <input type="number" id="edit-remaining-amount" min="0" required>
+                </div>
+                <button type="submit" class="action-btn btn-confirm">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- View User Modal -->
+    <div id="view-user-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-button" data-modal="view-user-modal">&times;</span>
+            <h2>User Details</h2>
+            <div id="user-details-content">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="edit-user-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-button" data-modal="edit-user-modal">&times;</span>
+            <h2>Edit User</h2>
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-user-id">
+                <div style="margin-bottom: 12px;">
+                    <label>Name:</label>
+                    <input type="text" id="edit-user-name" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Email:</label>
+                    <input type="email" id="edit-user-email" required>
+                </div>
+                <div style="margin-bottom: 12px;">
+                    <label>Phone:</label>
+                    <input type="text" id="edit-user-phone">
+                </div>
+                <button type="submit" class="action-btn btn-confirm">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html> 

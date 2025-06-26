@@ -1,0 +1,263 @@
+/* Booking Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-in-out;
+    overflow-y: auto; /* Enable vertical scrolling for the modal background */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease-in-out;
+    max-height: 90vh; /* Maximum height of 90% of viewport height */
+    overflow-y: auto; /* Enable vertical scrolling for the modal content */
+}
+
+/* Add a scrollbar style for better appearance */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Ensure the close button stays at the top */
+.close {
+    position: sticky;
+    top: 0;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    background: white;
+    padding: 0.5rem;
+    z-index: 1;
+}
+
+/* Make form elements more compact */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-group p {
+    margin: 0;
+    padding: 0.75rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    color: #333;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Adjust spacing for payment info */
+.payment-info {
+    margin: 1rem 0;
+    padding: 0.8rem;
+}
+
+/* Make the submit button sticky at the bottom */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content form button[type="submit"] {
+    position: sticky;
+    bottom: 0;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content form button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10% auto;
+        padding: 1.5rem;
+        max-height: 85vh;
+    }
+}
+
+/* Payment Info Styles */
+.advance-payment {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.payment-info p {
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.payment-info i {
+    color: #007bff;
+}
+
+#remainingAmount {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.booking-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.booking-card h3 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.booking-status {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.booking-status.pending {
+    background-color: #ffd700;
+    color: #000;
+}
+
+.booking-status.confirmed {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.booking-status.cancelled {
+    background-color: #ff9800;
+    color: white;
+}
+
+.booking-status.rejected {
+    background-color: #f44336;
+    color: white;
+}
+
+.booking-details {
+    margin-top: 20px;
+}
+
+.booking-details p {
+    margin: 10px 0;
+    color: #666;
+}
+
+.booking-details strong {
+    color: #333;
+}
+
+.booking-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+    background-color: #f57c00;
+}
+
+.no-bookings {
+    text-align: center;
+    color: #666;
+    margin-top: 30px;
+    font-size: 1.1em;
+}
+
+#bookings-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+} 

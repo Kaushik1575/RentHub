@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentHub - About Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .about-header {
+            padding: 8rem 5% 2rem;
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        .about-content {
+            padding: 4rem 5%;
+        }
+
+        .about-section {
+            margin-bottom: 4rem;
+        }
+
+        .about-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 15% auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--dark-gray);
+            border-radius: 5px;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .register-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .register-buttons a {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>RentHub</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="my-bookings.html" id="myBookingsBtn">My Bookings</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-login">Login</a>
+            <button id="registerBtn" class="btn btn-primary">Register</button>
+            <button id="adminBtn" class="btn btn-secondary" style="display: none;">Admin Panel</button>
+            <button id="logoutBtn" class="btn" style="display: none;">Logout</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="about-header">
+            <h1>About Us</h1>
+            <p>Your trusted partner for bike rentals since 2024</p>
+        </section>
+
+        <section class="about-content">
+            <div class="about-section">
+                <h2>Our Story</h2>
+                <p>BikeRental was founded with a simple mission: to make quality bikes accessible to everyone. We believe that cycling is not just a mode of transportation but a way of life that promotes health, sustainability, and community.</p>
+                <p>Starting with just 10 bikes in 2024, we've grown to become the city's most trusted bike rental service, offering a diverse fleet of well-maintained bikes for every need and preference.</p>
+            </div>
+
+            <div class="about-section">
+                <h2>Our Values</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Sustainability</h3>
+                        <p>Promoting eco-friendly transportation options</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Quality</h3>
+                        <p>Maintaining the highest standards in our fleet</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Trust</h3>
+                        <p>Building lasting relationships with our customers</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Community</h3>
+                        <p>Creating a cycling community in our city</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Meet the Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="photo/KD.jpg" alt="Kaushik Das">
+                        <h3>Kaushik Das</h3>
+                        <p>Founder & CEO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="photo/JRS.jpg" alt="Jyoti Ranjan Sahoo">
+                        <h3>Jyoti Ranjan Sahoo</h3>
+                        <p>Operation Manager</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="photo/JSP.jpg" alt="Jyoti Swarup Parhi">
+                        <h3>Jyoti Swarup Parhi</h3>
+                        <p>Head of Maintenance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Why Choose Us?</h2>
+                <ul>
+                    <li>Wide selection of high-quality bikes</li>
+                    <li>Flexible rental periods</li>
+                    <li>Competitive pricing</li>
+                    <li>Professional maintenance</li>
+                    <li>24/7 customer support</li>
+                    <li>Multiple pickup and drop-off locations</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>RentHub</h3>
+                <p>Your trusted partner for bike rentals</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="inventory.html">Inventory</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: dask64576@gmail.com</p>
+                <p>Phone: 9040757683</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 RentHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <!-- Login Form -->
+            <div id="loginForm">
+                <h2>Login</h2>
+                <form id="loginActualForm">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group password-group">
+                        <input type="password" placeholder="Password" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="showRegisterOptions">Register here</a></p>
+            </div>
+
+            <!-- Register Options -->
+            <div id="registerOptions">
+                <h2>Register as</h2>
+                <div class="register-buttons">
+                    <a href="user-register.html" class="btn btn-primary">User</a>
+                    <a href="admin-register.html" class="btn btn-secondary">Admin</a>
+                </div>
+                <p>Already have an account? <a href="#" id="showLoginFromOptions">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Choice Modal -->
+    <div id="register-choice-modal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); justify-content:center; align-items:center;">
+        <div style="background:#fff; padding:32px 24px; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.12); min-width:300px; text-align:center;">
+            <h3 style="margin-bottom:20px;">Register as</h3>
+            <button id="registerAsUserBtn" class="btn btn-primary" style="margin:8px 0; width:90%;">User</button><br>
+            <button id="registerAsAdminBtn" class="btn btn-secondary" style="margin:8px 0; width:90%;">Admin</button><br>
+            <button id="closeRegisterChoiceModal" class="btn" style="margin-top:16px; background:#eee; color:#333;">Cancel</button>
+        </div>
+    </div>
+    <script>
+    // Register choice modal logic
+    const registerBtn = document.getElementById('registerBtn');
+    const registerChoiceModal = document.getElementById('register-choice-modal');
+    const registerAsUserBtn = document.getElementById('registerAsUserBtn');
+    const registerAsAdminBtn = document.getElementById('registerAsAdminBtn');
+    const closeRegisterChoiceModal = document.getElementById('closeRegisterChoiceModal');
+
+    if (registerBtn && registerChoiceModal) {
+        registerBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            registerChoiceModal.style.display = 'flex';
+        });
+    }
+    if (registerAsUserBtn) {
+        registerAsUserBtn.addEventListener('click', () => {
+            window.location.href = 'user-register.html';
+        });
+    }
+    if (registerAsAdminBtn) {
+        registerAsAdminBtn.addEventListener('click', () => {
+            window.location.href = 'admin-register.html';
+        });
+    }
+    if (closeRegisterChoiceModal) {
+        closeRegisterChoiceModal.addEventListener('click', () => {
+            registerChoiceModal.style.display = 'none';
+        });
+    }
+    window.addEventListener('click', (e) => {
+        if (e.target === registerChoiceModal) {
+            registerChoiceModal.style.display = 'none';
+        }
+    });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "fullName": "Kaushik Das",
+    "email": "dask64576@gmail.com",
+    "phoneNumber": "9040757600",
+    "password": "$2a$10$HPVncdCUQKMRSnBWVmk3Y./iewvvAs6NdpZ8s/s7PLHDxMdQEA28m",
+    "aadharNumber": "821815910896",
+    "isAdmin": false
+  },
+  {
+    "id": 2,
+    "adminName": "Jyoti",
+    "email": "jyoti2006@gmail.com",
+    "adminId": "ADM2005",
+    "password": "$2a$10$9hahjooSajkGN.ouI9v.HeSWnRxOm4R9r.otb5aDx5G2bJGKUbvKy",
+    "isAdmin": true,
+    "fullName": "Jyoti",
+    "phoneNumber": "7077733320",
+    "isBlocked": false
+  },
+  {
+    "id": 3,
+    "fullName": "Jyoti Swarup Parhi",
+    "email": "jsbp2005@gmail.com",
+    "phoneNumber": "7077733320",
+    "password": "$2a$10$k/ulsTnXAso5vVaf/KvWQ.U3YpnRIJbdaJ8W2OW/yrrkRcbUpZ8mC",
+    "aadharNumber": "85467514758",
+    "isAdmin": false
+  },
+  {
+    "id": 4,
+    "adminName": "Arpita",
+    "email": "arpita2005@gmail.com",
+    "adminId": "ADM2004",
+    "password": "$2a$10$e8I80BlqqkFaopNrSW.fUejHDSXoeMo8x4Gv0ArofWjkNiizORWk6",
+    "isAdmin": true
+  }
+]

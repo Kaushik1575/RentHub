@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentHub - Contact Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .contact-header {
+            padding: 8rem 5% 2rem;
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        .contact-content {
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .info-card i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .contact-form {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .contact-form h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem;
+            border: 1px solid var(--dark-gray);
+            border-radius: 5px;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .map-container {
+            margin-top: 4rem;
+            padding: 0 5%;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .locations {
+            margin-top: 4rem;
+            padding: 0 5%;
+        }
+
+        .locations h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .location-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .location-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .location-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 15% auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--dark-gray);
+            border-radius: 5px;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .register-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .register-buttons a {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>RentHub</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="my-bookings.html" id="myBookingsBtn">My Bookings</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-login">Login</a>
+            <button id="registerBtn" class="btn btn-primary">Register</button>
+            <button id="adminBtn" class="btn btn-secondary" style="display: none;">Admin Panel</button>
+            <button id="logoutBtn" class="btn" style="display: none;">Logout</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="contact-header">
+            <h1>Contact Us</h1>
+            <p>We're here to help and answer any questions you might have</p>
+        </section>
+
+        <section class="contact-content">
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>Gohria Square ,BBSR</p>
+                        <p>Odisha 756001</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>Main: 9040757683</p>
+                        <p>Support: 7077733320</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@RentHub.com</p>
+                        <p>support@RentHub.com</p>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Hours</h3>
+                        <p>Monday - Friday: 8am - 10pm</p>
+                        <p>Saturday - Sunday: 9am - 11pm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2>Send us a Message</h2>
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Subject" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d380193.3033502755!2d85.32832924375!3d20.296102149999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a190013b5d2c673%3A0x9d4b0f209e5b22b1!2sBhubaneswar%2C%20Odisha!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+        </section>
+
+        <section class="locations">
+            <h2>Our Locations</h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h3>Bhubaneswar Main Branch</h3>
+                    <p>Gohrai Square</p>
+                    <p>Bhubaneswar, Odisha 751001</p>
+                    <p>Phone: 9040757683</p>
+                </div>
+                <div class="location-card">
+                    <h3>Cuttack Branch</h3>
+                    <p>Badambadi Chowk</p>
+                    <p>Cuttack, Odisha 753009</p>
+                    <p>Phone: 7077733320</p>
+                </div>
+                <div class="location-card">
+                    <h3>Puri Branch</h3>
+                    <p>Grand Road</p>
+                    <p>Puri, Odisha 752001</p>
+                    <p>Phone: 9040757683</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>RentHub</h3>
+                <p>Your trusted partner for bike rentals</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="inventory.html">Inventory</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@bikerental.com</p>
+                <p>Phone: 9040757683</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 RentHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle contact form submission
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                // Here you would typically send the data to your server
+                alert('Thank you for your message! We will get back to you soon.');
+                e.target.reset();
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+    <script src="js/auth.js"></script>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <!-- Login Form -->
+            <div id="loginForm">
+                <h2>Login</h2>
+                <form id="loginActualForm">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group password-group">
+                        <input type="password" placeholder="Password" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="showRegisterOptions">Register here</a></p>
+            </div>
+
+            <!-- Register Options -->
+            <div id="registerOptions">
+                <h2>Register as</h2>
+                <div class="register-buttons">
+                    <a href="user-register.html" class="btn btn-primary">User</a>
+                    <a href="admin-register.html" class="btn btn-secondary">Admin</a>
+                </div>
+                <p>Already have an account? <a href="#" id="showLoginFromOptions">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Choice Modal -->
+    <div id="register-choice-modal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); justify-content:center; align-items:center;">
+        <div style="background:#fff; padding:32px 24px; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.12); min-width:300px; text-align:center;">
+            <h3 style="margin-bottom:20px;">Register as</h3>
+            <button id="registerAsUserBtn" class="btn btn-primary" style="margin:8px 0; width:90%;">User</button><br>
+            <button id="registerAsAdminBtn" class="btn btn-secondary" style="margin:8px 0; width:90%;">Admin</button><br>
+            <button id="closeRegisterChoiceModal" class="btn" style="margin-top:16px; background:#eee; color:#333;">Cancel</button>
+        </div>
+    </div>
+    <script>
+    // Register choice modal logic
+    const registerBtn = document.getElementById('registerBtn');
+    const registerChoiceModal = document.getElementById('register-choice-modal');
+    const registerAsUserBtn = document.getElementById('registerAsUserBtn');
+    const registerAsAdminBtn = document.getElementById('registerAsAdminBtn');
+    const closeRegisterChoiceModal = document.getElementById('closeRegisterChoiceModal');
+
+    if (registerBtn && registerChoiceModal) {
+        registerBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            registerChoiceModal.style.display = 'flex';
+        });
+    }
+    if (registerAsUserBtn) {
+        registerAsUserBtn.addEventListener('click', () => {
+            window.location.href = 'user-register.html';
+        });
+    }
+    if (registerAsAdminBtn) {
+        registerAsAdminBtn.addEventListener('click', () => {
+            window.location.href = 'admin-register.html';
+        });
+    }
+    if (closeRegisterChoiceModal) {
+        closeRegisterChoiceModal.addEventListener('click', () => {
+            registerChoiceModal.style.display = 'none';
+        });
+    }
+    window.addEventListener('click', (e) => {
+        if (e.target === registerChoiceModal) {
+            registerChoiceModal.style.display = 'none';
+        }
+    });
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html> 

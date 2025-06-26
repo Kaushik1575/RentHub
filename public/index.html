@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikeRental - Your Adventure Starts Here</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>RentHub</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="my-bookings.html" id="myBookingsBtn">My Bookings</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login.html" class="btn btn-login">Login</a>
+            <button id="registerBtn" class="btn btn-primary">Register</button>
+    
+            <button id="adminBtn" class="btn btn-secondary" style="display: none;">Admin Panel</button>
+            <button id="logoutBtn" class="btn" style="display: none;">Logout</button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Adventure Starts Here</h1>
+                <p>Explore our wide range of bikes, scooty, and cars for your next journey.</p>
+            </div>
+        </section>
+
+        <!-- Vehicle Showcase Section -->
+        <section class="vehicle-showcase">
+            <div class="container">
+                <h2>Featured Vehicles</h2>
+
+                <!-- Bikes Section -->
+                <h3 class="category-title">Bikes</h3>
+                <div class="vehicle-grid" id="bikesGrid">
+                    <!-- Bike cards will be dynamically loaded here -->
+                </div>
+
+                <!-- Scooty Section -->
+                <h3 class="category-title">Scooty</h3>
+                <div class="vehicle-grid" id="scootyGrid">
+                    <!-- Scooter cards will be dynamically loaded here -->
+                </div>
+
+                <!-- Cars Section -->
+                <h3 class="category-title">Cars</h3>
+                <div class="vehicle-grid" id="carsGrid">
+                    <!-- Car cards will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <div class="container">
+                <h2 class="text-center">How It Works</h2>
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>1. Find Your Ride</h3>
+                        <p>Browse our extensive collection and filter by price, type, or features to find the perfect vehicle for your needs.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3>2. Book & Pay</h3>
+                        <p>Select your dates, fill out the booking form, and complete the payment securely through our various payment options.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <h3>3. Enjoy the Journey</h3>
+                        <p>Pick up your vehicle from the designated location and hit the road. Enjoy your trip with our reliable rentals!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-us">
+            <div class="container">
+                <h2 class="text-center">Why Choose Us?</h2>
+                <div class="features-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <h3>Wide Vehicle Selection</h3>
+                        <p>From powerful bikes to nimble scooters and comfortable cars, we have a vehicle for every type of adventurer.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Trusted & Safe</h3>
+                        <p>All our vehicles are regularly serviced and maintained to ensure you have a safe and worry-free experience.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Our dedicated support team is available around the clock to assist you with any queries or issues during your rental.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>RentHub</h3>
+                <p>Your trusted partner for bike rentals</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@bikerental.com</p>
+                <p>Phone: 7077733320</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 RentHub. All rights reserved.</p>
+            <p><a href="login.html" class="admin-login-link">Admin Login</a></p>
+        </div>
+    </footer>
+
+    <div id="register-choice-modal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); justify-content:center; align-items:center;">
+        <div style="background:#fff; padding:32px 24px; border-radius:10px; box-shadow:0 4px 24px rgba(0,0,0,0.12); min-width:300px; text-align:center;">
+            <h3 style="margin-bottom:20px;">Register as</h3>
+            <button id="registerAsUserBtn" class="btn btn-primary" style="margin:8px 0; width:90%;">User</button><br>
+            <button id="registerAsAdminBtn" class="btn btn-secondary" style="margin:8px 0; width:90%;">Admin</button><br>
+            <button id="closeRegisterChoiceModal" class="btn" style="margin-top:16px; background:#eee; color:#333;">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/vehicles.js"></script>
+    <script>
+    // Register choice modal logic
+    const registerBtn = document.getElementById('registerBtn');
+    const registerChoiceModal = document.getElementById('register-choice-modal');
+    const registerAsUserBtn = document.getElementById('registerAsUserBtn');
+    const registerAsAdminBtn = document.getElementById('registerAsAdminBtn');
+    const closeRegisterChoiceModal = document.getElementById('closeRegisterChoiceModal');
+
+    if (registerBtn && registerChoiceModal) {
+        registerBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            registerChoiceModal.style.display = 'flex';
+        });
+    }
+    if (registerAsUserBtn) {
+        registerAsUserBtn.addEventListener('click', () => {
+            window.location.href = 'user-register.html';
+        });
+    }
+    if (registerAsAdminBtn) {
+        registerAsAdminBtn.addEventListener('click', () => {
+            window.location.href = 'admin-register.html';
+        });
+    }
+    if (closeRegisterChoiceModal) {
+        closeRegisterChoiceModal.addEventListener('click', () => {
+            registerChoiceModal.style.display = 'none';
+        });
+    }
+    window.addEventListener('click', (e) => {
+        if (e.target === registerChoiceModal) {
+            registerChoiceModal.style.display = 'none';
+        }
+    });
+    </script>
+</body>
+</html> 
