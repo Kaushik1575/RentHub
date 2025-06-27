@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert('Booking successful! Your booking is pending confirmation.');
+                    alert('Booking Aceepted! Please check your email for confirmation and further details.');
                     window.location.href = '/my-bookings.html';
                 } else {
                     alert(`Booking failed: ${result.message || 'Unknown error'}`);
