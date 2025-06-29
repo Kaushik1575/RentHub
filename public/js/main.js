@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('Booking Aceepted! Please wait and check your Registered email for confirmation and further details.');
                     window.location.href = '/my-bookings.html';
                 } else {
-                    alert(`Booking failed: ${result.message || 'Unknown error'}`);
+                    alert("Vechicle is already Booked ! Please choose another vechicle");
                 }
             } catch (error) {
                 console.error('Error during booking:', error);
