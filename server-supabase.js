@@ -807,29 +807,86 @@ app.post('/api/register/admin', async (req, res) => {
     }
 });
 
+// Debug endpoint to check user data (remove in production)
+app.get('/api/debug/user/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        console.log('🔍 Debug: Checking user data for email:', email);
+        
+        const user = await SupabaseDB.getUserByEmail(email);
+        console.log('📊 Debug: Raw user data:', user);
+        
+        if (!user) {
+            return res.json({ error: 'User not found', email });
+        }
+        
+        // Show both raw and mapped data
+        const mappedUser = {
+            id: user.id,
+            fullName: user.full_name,
+            adminName: user.admin_name,
+            email: user.email,
+            phoneNumber: user.phone_number,
+            isAdmin: user.is_admin || false
+        };
+        
+        res.json({
+            raw: user,
+            mapped: mappedUser,
+            fields: {
+                hasFullName: !!user.full_name,
+                hasAdminName: !!user.admin_name,
+                hasEmail: !!user.email,
+                isAdmin: user.is_admin
+            }
+        });
+    } catch (error) {
+        console.error('❌ Debug endpoint error:', error);
+        res.status(500).json({ error: 'Debug endpoint error', details: error.message });
+    }
+});
+
 // User Login
 app.post('/api/login', async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log('🔍 Login attempt for email:', email);
+        
         const user = await SupabaseDB.getUserByEmail(email);
+        console.log('📊 Raw user data from Supabase:', user);
 
         if (!user) {
+            console.log('❌ User not found');
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
+            console.log('❌ Invalid password');
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
         const token = jwt.sign(
-            { id: user.id, email: user.email, isAdmin: user.isAdmin },
+            { id: user.id, email: user.email, isAdmin: user.is_admin },
             JWT_SECRET
         );
 
-        res.json({ token, user });
+        // Map snake_case to camelCase for frontend compatibility
+        const userResponse = {
+            id: user.id,
+            fullName: user.full_name,
+            adminName: user.admin_name,
+            email: user.email,
+            phoneNumber: user.phone_number,
+            isAdmin: user.is_admin || false
+        };
+        
+        console.log('🎯 Mapped user response:', userResponse);
+        console.log('✅ Login successful for:', userResponse.fullName || userResponse.adminName || userResponse.email);
+
+        res.json({ token, user: userResponse });
     } catch (error) {
-        console.error('Error during login:', error);
+        console.error('❌ Error during login:', error);
         res.status(500).json({ error: 'Error during login' });
     }
 });
@@ -851,7 +908,19 @@ app.post('/api/login/admin', async (req, res) => {
             { id: admin.id, email: admin.email, isAdmin: admin.is_admin },
             JWT_SECRET
         );
-        res.json({ token, admin });
+        
+        // Map snake_case to camelCase for frontend compatibility
+        const adminResponse = {
+            id: admin.id,
+            fullName: admin.full_name,
+            adminName: admin.admin_name,
+            email: admin.email,
+            phoneNumber: admin.phone_number,
+            adminId: admin.admin_id,
+            isAdmin: admin.is_admin || false
+        };
+        
+        res.json({ token, admin: adminResponse });
     } catch (error) {
         console.error('Error during admin login:', error);
         res.status(500).json({ error: 'Error during admin login' });
